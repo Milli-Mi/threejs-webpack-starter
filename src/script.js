@@ -3,6 +3,10 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'dat.gui'
 
+// Texture Loader
+const textureLoader = new THREE.TextureLoader();
+
+
 // Debug
 const gui = new dat.GUI()
 
@@ -12,17 +16,19 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 const scene = new THREE.Scene()
 
-// Objects
-const geometry = new THREE.TorusGeometry( .7, .2, 16, 100 );
+const geometry = new THREE.PlaneBufferGeometry(1, 1.3)
 
-// Materials
+for (let i = 0; i < 6; i++ ) {
+    const material = new THREE.MeshBasicMaterial({
+        map: textureLoader.load(`/photografs/${i}.jpg`)
+    })
+        
+    const img = new THREE.Mesh( geometry, material )
 
-const material = new THREE.MeshBasicMaterial()
-material.color = new THREE.Color(0xff0000)
+    scene.add(img)
 
-// Mesh
-const sphere = new THREE.Mesh(geometry,material)
-scene.add(sphere)
+}
+ 
 
 // Lights
 
@@ -90,7 +96,7 @@ const tick = () =>
     const elapsedTime = clock.getElapsedTime()
 
     // Update objects
-    sphere.rotation.y = .5 * elapsedTime
+    
 
     // Update Orbital Controls
     // controls.update()
