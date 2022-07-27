@@ -18,17 +18,21 @@ const scene = new THREE.Scene()
 
 const geometry = new THREE.PlaneBufferGeometry(1, 1.3)
 
-for (let i = 0; i < 6; i++ ) {
-    const material = new THREE.MeshBasicMaterial({
-        map: textureLoader.load(`/photografs/${i}.jpg`)
-    })
+ 
+
+    for(let i = 0; i < 4; i++) {
+        const material = new THREE.MeshBasicMaterial({
+            map: textureLoader.load(`/photographs/${i}.jpg`)
+        })
         
     const img = new THREE.Mesh( geometry, material )
+    img.position.set = (Math.random()+.3, i*-1.8)
 
     scene.add(img)
 
 }
  
+
 
 // Lights
 
@@ -70,6 +74,8 @@ camera.position.x = 0
 camera.position.y = 0
 camera.position.z = 2
 scene.add(camera)
+
+gui.add(camera.position, 'y').min(-5).max(10)
 
 // Controls
 // const controls = new OrbitControls(camera, canvas)
